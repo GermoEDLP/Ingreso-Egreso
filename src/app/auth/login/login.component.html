@@ -9,14 +9,14 @@
                 <div class="form-group">
                   <label class="label">Usuario</label>
                   <div class="input-group">
-                    
+
                     <input type="email"
                            class="form-control"
                            placeholder="Email"
                            ngModel
                            name="email"
                            required>
-                    
+
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="fa fa-check-circle"></i>
@@ -27,14 +27,14 @@
                 <div class="form-group">
                   <label class="label">Contraseña</label>
                   <div class="input-group">
-                    
+
                     <input type="password"
                            class="form-control"
                            placeholder="*********"
                            ngModel
                            name="password"
                            required>
-                    
+
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="fa fa-check-circle"></i>
@@ -43,10 +43,14 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <button [disabled]="f.invalid" class="btn btn-primary submit-btn btn-block">Login</button>
+                  <button *ngIf="!cargando" [disabled]="f.invalid" class="btn btn-primary submit-btn btn-block">Login</button>
+                  <button *ngIf="cargando" [disabled]="true" class="btn btn-primary submit-btn btn-block">
+                    <i class="fa fa-sync fa-spin"></i>
+                    Espere
+                  </button>
                 </div>
-                
-                
+
+
                 <div class="text-block text-center my-3">
                   <span class="text-small font-weight-semibold">No estas registrado? </span>
                   <br>
@@ -54,11 +58,10 @@
                 </div>
               </form>
             </div>
-            
-            
+
+
           </div>
         </div>
       </div>
       <!-- content-wrapper ends -->
     </div>
-  

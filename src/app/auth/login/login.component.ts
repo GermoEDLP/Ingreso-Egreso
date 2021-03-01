@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { AppState } from 'src/app/app.reducers';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -6,11 +9,23 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styles: []
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor( public authService: AuthService ) { }
+  cargando: boolean = false;
+  sub: Subscription;
+
+  constructor( public authService: AuthService , public store: Store<AppState>) {
+
+  }
 
   ngOnInit() {
+    this.sub = this.store.select('ui').subscribe((ui)=>{
+      this.cargando = ui.isLoading;
+    })
+  }
+
+  ngOnDestroy(){
+    this.sub.unsubscribe();
   }
 
   onSubmit( data: any ) {

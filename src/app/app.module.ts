@@ -1,18 +1,17 @@
+//Modulos de Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-// Modulos
-import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
-// Firebase
+//Modulos propios
+import { AppRoutingModule } from './app-routing.module';
+
+//Modulos externos
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-// Environment
-import { environment } from '../environments/environment';
-
+//Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -24,6 +23,13 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
+// NgRx
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+
+// Environment
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +50,14 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: false
+    })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
