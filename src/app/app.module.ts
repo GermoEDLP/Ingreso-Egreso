@@ -1,7 +1,7 @@
 //Modulos de Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Modulos propios
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ChartsModule } from 'ng2-charts';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -30,6 +31,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
 // Environment
 import { environment } from '../environments/environment';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +45,13 @@ import { environment } from '../environments/environment';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -55,7 +59,8 @@ import { environment } from '../environments/environment';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false
-    })
+    }),
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

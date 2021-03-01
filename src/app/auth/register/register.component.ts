@@ -12,7 +12,7 @@ import { AuthService } from '../auth.service';
 export class RegisterComponent implements OnInit {
 
   cargando: boolean = false;
-  sub: Subscription;
+  sub: Subscription = new Subscription();
 
   constructor( public authService: AuthService , public store: Store<AppState>) {
 

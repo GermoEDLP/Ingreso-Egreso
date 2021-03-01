@@ -16,7 +16,7 @@ import {
   ActivarLoadingAction,
   DesactivarLoadingAction,
 } from '../shared/ui.actions';
-import { SetUserAction } from './auth.actions';
+import { SetUserAction, UnsetUserAction } from './auth.actions';
 import { User } from './user.model';
 
 @Injectable({
@@ -31,6 +31,7 @@ export class AuthService {
   ) {}
 
   userSub: Subscription = new Subscription();
+  private usuario: User;
 
   initAuthListener() {
     this.afAuth.authState.subscribe((fbUser) => {
@@ -40,10 +41,12 @@ export class AuthService {
 
           const newUser = new User(user);
           this.store.dispatch(new SetUserAction(newUser));
+          this.usuario = newUser;
 
         })
       }else{
         this.userSub.unsubscribe();
+        this.usuario = null;
       }
 
     });
@@ -98,6 +101,7 @@ export class AuthService {
   logout() {
     this.router.navigate(['/login']);
     this.afAuth.signOut();
+    this.store.dispatch(new UnsetUserAction());
   }
 
   isAuth() {
@@ -110,5 +114,9 @@ export class AuthService {
         return fbUser != null;
       })
     );
+  }
+
+  getUsuario(){
+    return {...this.usuario};
   }
 }
