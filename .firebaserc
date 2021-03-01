@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "prueba-angular-16ac8": {
+      "hosting": {
+        "Ingreso-Egreso-App": [
+          "prueba-angular-16ac8"
+        ]
+      }
+    }
+  }
+}
